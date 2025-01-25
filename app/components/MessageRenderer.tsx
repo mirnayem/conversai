@@ -61,7 +61,7 @@ const MessageRenderer: React.FC<MessageRendererProps> = ({
       if ("speechSynthesis" in window) {
         const utterance = new SpeechSynthesisUtterance(textContent);
         utterance.lang = "en-US";
-        utterance.pitch = 1;
+        utterance.pitch = 1.5;
         utterance.rate = 1;
 
         utterance.onstart = () => setIsSpeaking(true);
@@ -71,6 +71,13 @@ const MessageRenderer: React.FC<MessageRendererProps> = ({
       } else {
         alert("Speech synthesis not supported in your browser.");
       }
+    }
+  };
+
+  const handleStopSpeech = () => {
+    if (window.speechSynthesis.speaking) {
+      window.speechSynthesis.cancel();
+      setIsSpeaking(false);
     }
   };
 
@@ -138,7 +145,11 @@ const MessageRenderer: React.FC<MessageRendererProps> = ({
         <div className="chat-control px-6 flex gap-3 my-2">
           <Tooltip content="read aloud">
             {isSpeaking ? (
-              <VolumeOff size="16" />
+              <VolumeOff
+                className="cursor-pointer"
+                onClick={handleStopSpeech}
+                size="16"
+              />
             ) : (
               <Volume2
                 className="cursor-pointer"
