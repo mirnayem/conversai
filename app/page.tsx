@@ -6,16 +6,16 @@ import { Message, useChat } from "@ai-sdk/react";
 import { motion, AnimatePresence } from "framer-motion";
 import WelcomeCard from "./components/WelcomeCard";
 import MessageRenderer from "./components/MessageRenderer";
-import LoadingSpinner from "./components/LoadingSpinner";
 import ErrorRetry from "./components/ErrorRetry";
 import { Pause, Send } from "lucide-react";
+import SkeletonLoader from "./components/SkeletonLoader";
 
 export default function Chat() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [editableList, setEditableList] = useState<string[]>([]);
   const [editableContent, setEditableContent] = useState("");
   const [hasMessage, setHasMessage] = useState<boolean>(false);
-  
+
   const {
     messages,
     input,
@@ -28,6 +28,11 @@ export default function Chat() {
     error,
     setInput,
   } = useChat({ api: "/api/chat" });
+
+  const messageVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+  };
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -98,22 +103,34 @@ export default function Chat() {
               resetMessages={resetMessages}
             />
 
-            <ScrollArea className="flex-1 pt-[6rem] pb-[8rem]">
+            <ScrollArea className="flex-1 pt-[6rem] pb-[10rem]">
               {messages.map((message) => (
-                <MessageRenderer
+                <motion.div
                   key={message.id}
-                  message={message}
-                  editable={editableList.includes(message.id)}
-                  editableContent={editableContent}
-                  onEdit={handleEdit}
-                  onCancelEdit={() => handleEdit(message)}
-                  onSaveEdit={handleSaveEdit}
-                  onEditChange={handleEditChange}
-                  handleKeyDown={handleKeyDown}
-                />
+                  initial="hidden"
+                  animate="visible"
+                  exit="hidden"
+                  variants={messageVariants}
+                  transition={{
+                    duration: 0.5,
+                    ease: "easeInOut",
+                  }}
+                >
+                  <MessageRenderer
+                    key={message.id}
+                    message={message}
+                    editable={editableList.includes(message.id)}
+                    editableContent={editableContent}
+                    onEdit={handleEdit}
+                    onCancelEdit={() => handleEdit(message)}
+                    onSaveEdit={handleSaveEdit}
+                    onEditChange={handleEditChange}
+                    handleKeyDown={handleKeyDown}
+                  />
+                </motion.div>
               ))}
 
-              {isLoading && <LoadingSpinner />}
+              {isLoading && <SkeletonLoader />}
               {error && <ErrorRetry onRetry={reload} />}
               <div ref={scrollRef}></div>
             </ScrollArea>

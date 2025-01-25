@@ -33,7 +33,7 @@ const MessageRenderer: React.FC<MessageRendererProps> = ({
 }) => {
   return (
     <div
-      className={`mb-16 group flex flex-wrap max-w-md gap-x-2 items-center ${
+      className={`mb-10 group flex flex-wrap max-w-md gap-x-2 items-center ${
         message.role === "user"
           ? "text-right max-w-[80vw] justify-end ml-auto mr-0"
           : "text-left justify-start"
