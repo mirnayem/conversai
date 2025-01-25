@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { Message } from "ai";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Pen } from "lucide-react";
+import { Copy, Pen, SquareCheckBig } from "lucide-react";
 import MarkdownRenderer from "./MarkdownRenderer";
+import Tooltip from "./ui/ToolTip";
+import useCopyMarkdown from "../hooks/useCopyMarkdown";
 
 interface MessageRendererProps {
   message: Message;
@@ -13,6 +15,7 @@ interface MessageRendererProps {
   onCancelEdit: () => void;
   onSaveEdit: (e: React.FormEvent, message: Message) => void;
   onEditChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  isLoading: boolean;
   handleKeyDown: (
     e: React.KeyboardEvent<HTMLTextAreaElement>,
     message?: Message
@@ -28,7 +31,28 @@ const MessageRenderer: React.FC<MessageRendererProps> = ({
   onSaveEdit,
   onEditChange,
   handleKeyDown,
+  isLoading,
 }) => {
+  const elementRef = useRef<HTMLDivElement | null>(null);
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+
+  const handleCopyStatus = (status: "success" | "error") => {
+    setStatus(status);
+    if (status === "success") {
+      setTimeout(() => {
+        setStatus("idle");
+      }, 3000);
+    }
+  };
+
+  const { handleCopy } = useCopyMarkdown(handleCopyStatus);
+
+  const copyToMarkdown = () => {
+    if (elementRef.current) {
+      handleCopy(elementRef.current.innerHTML);
+    }
+  };
+
   return (
     <div
       className={`mb-10 group flex flex-wrap max-w-md gap-x-2 items-center ${
@@ -49,8 +73,8 @@ const MessageRenderer: React.FC<MessageRendererProps> = ({
       <div
         className={`relative ${
           editable
-            ? "p-1 w-full max-w-[90%] shadow-none"
-            : "flex flex-wrap max-w-md p-3 overflow-x-auto no-scrollbar"
+            ? "p-1 w-full max-w-[70%] shadow-none"
+            : "flex flex-wrap p-3 overflow-x-auto no-scrollbar"
         } ${
           message.role === "user" && !editable
             ? "bg-stone-50 rounded-3xl shadow-md font-normal text-left  max-w-[70%]"
@@ -84,9 +108,28 @@ const MessageRenderer: React.FC<MessageRendererProps> = ({
             </div>
           </form>
         ) : (
-          <MarkdownRenderer content={message.content} />
+          <div ref={elementRef}>
+            <MarkdownRenderer content={message.content} />
+          </div>
         )}
       </div>
+      {message.role !== "user" && !isLoading ? (
+        <div className="chat-control px-5">
+          <Tooltip content="copy">
+            {status === "success" ? (
+              <SquareCheckBig size="16" />
+            ) : (
+              <Copy
+                onClick={copyToMarkdown}
+                className="cursor-pointer"
+                size="16"
+              />
+            )}
+          </Tooltip>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

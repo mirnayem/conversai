@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Bot } from "lucide-react";
 import React from "react";
 import NoMessage from "./NoMessage";
+import Tooltip from "./ui/ToolTip";
 
 interface Props {
   hasMessage: boolean;
@@ -17,17 +18,19 @@ const WelcomeCard: React.FC<Props> = ({ hasMessage, resetMessages }) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      {hasMessage ? 
+      {hasMessage ? (
         <div className="fixed top-0 h-[5rem] z-50 bg-white flex w-full max-w-md px-4 items-center shadow-md">
           <motion.div
             whileHover={{ scale: 1.1 }}
             className="cursor-pointer flex items-center justify-center"
           >
-            <Bot
-              onClick={resetMessages}
-              className="size-8 cursor-pointer"
-              color="#000"
-            />
+            <Tooltip content="new chat">
+              <Bot
+                onClick={resetMessages}
+                className="size-8 cursor-pointer"
+                color="#000"
+              />
+            </Tooltip>
           </motion.div>
 
           <motion.div
@@ -39,9 +42,9 @@ const WelcomeCard: React.FC<Props> = ({ hasMessage, resetMessages }) => {
             ConversAI
           </motion.div>
         </div>
-       : 
+      ) : (
         <NoMessage />
-      }
+      )}
     </motion.div>
   );
 };

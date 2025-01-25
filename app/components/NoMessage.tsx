@@ -38,8 +38,8 @@ const NoMessage = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.5 }}
       >
-        Ready to assist you with anything you need, from answering questions to
-        providing recommendations. Let&apos;s get started!
+        LearnFun - Affordable, flexible, industry-relevant education with
+        scholarships, career support, and global reach.
       </motion.p>
     </div>
   );

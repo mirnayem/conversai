@@ -126,6 +126,7 @@ export default function Chat() {
                     onSaveEdit={handleSaveEdit}
                     onEditChange={handleEditChange}
                     handleKeyDown={handleKeyDown}
+                    isLoading={isLoading}
                   />
                 </motion.div>
               ))}
