@@ -38,6 +38,10 @@ const NoMessage = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.5 }}
       >
+        <noscript>
+          LearnFun - Affordable, flexible, industry-relevant education with
+          scholarships, career support, and global reach.
+        </noscript>
         LearnFun - Affordable, flexible, industry-relevant education with
         scholarships, career support, and global reach.
       </motion.p>

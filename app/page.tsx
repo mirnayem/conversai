@@ -153,6 +153,7 @@ export default function Chat() {
                 />
                 <Button
                   type="submit"
+                  aria-label="send"
                   disabled={!input && !isLoading}
                   className="absolute right-2 bottom-2"
                 >

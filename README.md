@@ -8,6 +8,8 @@ This is a simple chat application built with Next.js, TypeScript, Tailwindcss, S
 - **Error Handling**: Retry mechanism implemented for failed operations.
 - **Loading Indicator**: A spinner indicates loading states.
 - **Editable Messages**: Users can edit their sent messages inline.
+- **Copy Messages**: Users can copy the ai provided messages
+- **Audio Play**: Read aloud applied to the message
 
 ### Brief Explanation of Implementation
 
@@ -88,17 +90,16 @@ This is a simple chat application built with Next.js, TypeScript, Tailwindcss, S
 ## Folder Structure
 ```
 conversai/
-├── src/
-│   ├── app/                       # App directory for Next.js routing
-│   │   ├── layout.tsx             # Root layout for the application
-│   │   ├── page.tsx               # Main entry point (root page)
-│   │   ├── globals.css            # Global styles for the application
-│   │   ├── components/            # Reusable components
-│   │   │   ├── MessageRenderer.tsx # Component to render chat messages
-│   │   │   ├── LoadingSpinner.tsx  # Component for loading spinner
-│   │   │   └── ErrorRetry.tsx      # Component for error retry
-│   │   ├── api/                   # API routes for Next.js
-│   │       ├──chat
+├── app/                       # App directory for Next.js routing
+│    ├── layout.tsx             # Root layout for the application
+│    ├── page.tsx               # Main entry point (root page)
+│    ├── globals.css            # Global styles for the application
+│    ├── components/            # Reusable components
+│    │   ├── MessageRenderer.tsx # Component to render chat messages
+│    │   ├── LoadingSpinner.tsx  # Component for loading spinner
+│    │   └── ErrorRetry.tsx      # Component for error retry
+│    ├── api/                   # API routes for Next.js
+│        ├──chat
                 ├── route.ts           # Example API route
 ├── public/
 │   ├── favicon.ico                # Favicon for the application

@@ -54,14 +54,14 @@ const MessageRenderer: React.FC<MessageRendererProps> = ({
     }
   };
 
-  const handleReadAloud = () => {
+  const handleReadAloud = async () => {
     if (elementRef.current) {
-      const textContent = elementRef.current.innerText;
+      const textContent = await elementRef.current.innerText;
 
       if ("speechSynthesis" in window) {
         const utterance = new SpeechSynthesisUtterance(textContent);
         utterance.lang = "en-US";
-        utterance.pitch = 1.5;
+        utterance.pitch = 1;
         utterance.rate = 1;
 
         utterance.onstart = () => setIsSpeaking(true);
