@@ -15,9 +15,11 @@ interface MessageRendererProps {
   onCancelEdit: () => void;
   onSaveEdit: (e: React.FormEvent, message: Message) => void;
   onEditChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  handleKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>, message?: Message) => void;
+  handleKeyDown: (
+    e: React.KeyboardEvent<HTMLTextAreaElement>,
+    message?: Message
+  ) => void;
 }
-
 
 const MessageRenderer: React.FC<MessageRendererProps> = ({
   message,
@@ -27,13 +29,13 @@ const MessageRenderer: React.FC<MessageRendererProps> = ({
   onCancelEdit,
   onSaveEdit,
   onEditChange,
-  handleKeyDown
+  handleKeyDown,
 }) => {
   return (
     <div
       className={`mb-16 group flex flex-wrap max-w-md gap-x-2 items-center ${
         message.role === "user"
-          ? "text-right justify-end"
+          ? "text-right max-w-[80vw] justify-end ml-auto mr-0"
           : "text-left justify-start"
       }`}
     >
@@ -53,7 +55,7 @@ const MessageRenderer: React.FC<MessageRendererProps> = ({
             : "flex flex-wrap max-w-md p-3 overflow-x-auto no-scrollbar"
         } ${
           message.role === "user" && !editable
-            ? "bg-stone-50 rounded-3xl shadow-md font-normal text-left max-w-[80%]"
+            ? "bg-stone-50 rounded-3xl shadow-md font-normal text-left  max-w-[80%]"
             : ""
         }`}
       >
