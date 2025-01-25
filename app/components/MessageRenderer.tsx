@@ -6,6 +6,7 @@ import { Message } from "ai";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Pen } from "lucide-react";
+import MarkdownRenderer from "./MarkdownRenderer";
 
 interface MessageRendererProps {
   message: Message;
@@ -55,7 +56,7 @@ const MessageRenderer: React.FC<MessageRendererProps> = ({
             : "flex flex-wrap max-w-md p-3 overflow-x-auto no-scrollbar"
         } ${
           message.role === "user" && !editable
-            ? "bg-stone-50 rounded-3xl shadow-md font-normal text-left  max-w-[80%]"
+            ? "bg-stone-50 rounded-3xl shadow-md font-normal text-left  max-w-[70%]"
             : ""
         }`}
       >
@@ -86,30 +87,7 @@ const MessageRenderer: React.FC<MessageRendererProps> = ({
             </div>
           </form>
         ) : (
-          <ReactMarkdown
-            children={message.content}
-            remarkPlugins={[remarkGfm]}
-            components={{
-              code({ inline, children, ...props }) {
-                return inline ? (
-                  <code {...props} className="bg-gray-200 px-2 py-1 rounded">
-                    {children}
-                  </code>
-                ) : (
-                  <pre {...props} className="bg-gray-200 px-2 py-1 rounded">
-                    <code>{children}</code>
-                  </pre>
-                );
-              },
-              ul: ({ children }) => (
-                <ul className="list-disc ml-4">{children}</ul>
-              ),
-              ol: ({ children }) => (
-                <ol className="list-decimal ml-4">{children}</ol>
-              ),
-              li: ({ children }) => <li className="ml-4">{children}</li>,
-            }}
-          />
+          <MarkdownRenderer content={message.content} />
         )}
       </div>
     </div>
