@@ -19,13 +19,11 @@
     "@radix-ui/react-tooltip": "^1.1.7",
     "@shadcn/ui": "^0.0.4",
     "ai": "^4.1.0",
-    "axios": "^1.7.9",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.0.1",
     "lucide-react": "^0.473.0",
     "next": "15.1.5",
-    "openai": "^4.79.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",
@@ -33,12 +31,11 @@
     "react-syntax-highlighter": "^15.6.1",
     "remark-gfm": "^4.0.0",
     "tailwind-merge": "^2.6.0",
-    "tailwindcss-animate": "^1.0.7",
-    "turndown": "^7.2.0",
-    "zod": "^3.24.1"
+    "turndown": "^7.2.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",
+    "@next/bundle-analyzer": "^15.1.6",
     "@types/next": "^8.0.7",
     "@types/node": "^20.17.14",
     "@types/react": "^19.0.8",

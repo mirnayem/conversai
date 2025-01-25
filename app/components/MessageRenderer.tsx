@@ -3,9 +3,11 @@ import { Message } from "ai";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Copy, Pen, SquareCheckBig, Volume2, VolumeOff } from "lucide-react";
-import MarkdownRenderer from "./MarkdownRenderer";
 import Tooltip from "./ui/ToolTip";
 import useCopyMarkdown from "../hooks/useCopyMarkdown";
+import dynamic from "next/dynamic";
+
+const MarkdownRenderer = dynamic(() => import("./MarkdownRenderer"));
 
 interface MessageRendererProps {
   message: Message;
