@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { Message } from "ai";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Copy, Pen, SquareCheckBig } from "lucide-react";
+import { Copy, Pen, SquareCheckBig, Volume2, VolumeOff } from "lucide-react";
 import MarkdownRenderer from "./MarkdownRenderer";
 import Tooltip from "./ui/ToolTip";
 import useCopyMarkdown from "../hooks/useCopyMarkdown";
@@ -35,6 +35,7 @@ const MessageRenderer: React.FC<MessageRendererProps> = ({
 }) => {
   const elementRef = useRef<HTMLDivElement | null>(null);
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const [isSpeaking, setIsSpeaking] = useState(false);
 
   const handleCopyStatus = (status: "success" | "error") => {
     setStatus(status);
@@ -50,6 +51,26 @@ const MessageRenderer: React.FC<MessageRendererProps> = ({
   const copyToMarkdown = () => {
     if (elementRef.current) {
       handleCopy(elementRef.current.innerHTML);
+    }
+  };
+
+  const handleReadAloud = () => {
+    if (elementRef.current) {
+      const textContent = elementRef.current.innerText;
+
+      if ("speechSynthesis" in window) {
+        const utterance = new SpeechSynthesisUtterance(textContent);
+        utterance.lang = "en-US";
+        utterance.pitch = 1;
+        utterance.rate = 1;
+
+        utterance.onstart = () => setIsSpeaking(true);
+        utterance.onend = () => setIsSpeaking(false);
+
+        window.speechSynthesis.speak(utterance);
+      } else {
+        alert("Speech synthesis not supported in your browser.");
+      }
     }
   };
 
@@ -114,7 +135,18 @@ const MessageRenderer: React.FC<MessageRendererProps> = ({
         )}
       </div>
       {message.role !== "user" && !isLoading ? (
-        <div className="chat-control px-5">
+        <div className="chat-control px-6 flex gap-3 my-2">
+          <Tooltip content="read aloud">
+            {isSpeaking ? (
+              <VolumeOff size="16" />
+            ) : (
+              <Volume2
+                className="cursor-pointer"
+                onClick={handleReadAloud}
+                size="16"
+              />
+            )}
+          </Tooltip>
           <Tooltip content="copy">
             {status === "success" ? (
               <SquareCheckBig size="16" />
