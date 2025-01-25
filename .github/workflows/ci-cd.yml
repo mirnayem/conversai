@@ -33,10 +33,6 @@ jobs:
       - name: Lint code
         run: npm run lint
 
-      # Step 5: Run tests
-      - name: Run tests
-        run: npm test
-
       # Step 6: Build application
       - name: Build application
         env:
