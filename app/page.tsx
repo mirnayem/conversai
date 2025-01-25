@@ -57,6 +57,7 @@ export default function Chat() {
   const handleSaveEdit = (e: FormEvent, message: Message) => {
     e.preventDefault();
     handleEdit(message);
+    handleSubmit();
   };
 
   const handleEditChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
