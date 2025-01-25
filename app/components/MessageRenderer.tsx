@@ -1,7 +1,4 @@
-// MessageRenderer.tsx
 import React from "react";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 import { Message } from "ai";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";

@@ -1,3 +1,4 @@
+import React from "react";
 import { motion } from "framer-motion";
 import { Hand } from "lucide-react";
 
@@ -44,4 +45,4 @@ const NoMessage = () => {
   );
 };
 
-    export default NoMessage;
+export default NoMessage;
