@@ -31,7 +31,7 @@ jobs:
 
       # Step 4: Run linting
       - name: Lint code
-        run: npm run lint -- --no-interactive
+        run: npm run lint
 
       # Step 5: Run tests
       - name: Run tests
