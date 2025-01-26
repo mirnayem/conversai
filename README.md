@@ -25,7 +25,6 @@ This is a simple chat application built with Next.js, TypeScript, Tailwindcss, S
 ---
 
 ## Repository
-[GitHub Repository](https://github.com/your-username/chat-application)
 
 ## How to Run the Project Locally
 
