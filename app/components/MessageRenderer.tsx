@@ -85,10 +85,10 @@ const MessageRenderer: React.FC<MessageRendererProps> = ({
 
   return (
     <div
-      className={`mb-10 group flex flex-wrap max-w-md gap-x-2 items-center ${
+      className={`mb-10 group flex flex-wrap max-w-md gap-x-2  ${
         message.role === "user"
-          ? "text-right max-w-[80vw] justify-end ml-auto mr-0"
-          : "text-left justify-start"
+          ? "text-right max-w-[80vw] justify-end items-start ml-auto mr-0"
+          : "text-left justify-start items-center"
       }`}
     >
       {message.role === "user" && !editable && (
@@ -103,7 +103,7 @@ const MessageRenderer: React.FC<MessageRendererProps> = ({
       <div
         className={`relative ${
           editable
-            ? "p-1 w-full max-w-[70%] shadow-none"
+            ? "p-1 w-full max-w-[90%] shadow-none"
             : "flex flex-wrap p-3 overflow-x-auto no-scrollbar"
         } ${
           message.role === "user" && !editable

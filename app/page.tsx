@@ -28,14 +28,17 @@ export default function Chat() {
     reload,
     error,
     setInput,
-  } = useChat({ api: "/api/chat" });
+  } = useChat({ api: "/api/chat"});
+
+  useEffect(() => {
+    if (messages.length > 0) {
+      setHasMessage(true);
+    }
+  }, [messages]);
 
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-    if (messages.length > 0) {
-      setHasMessage(true);
     }
   }, [messages]);
 
@@ -69,10 +72,7 @@ export default function Chat() {
     event: React.KeyboardEvent<HTMLTextAreaElement>,
     message?: Message
   ) => {
-    if (event.key === "Enter") {
-      if (event.shiftKey) {
-        return;
-      }
+    if (!event.shiftKey && event.key === "Enter") {
       event.preventDefault();
       handleSubmit();
       if (message) {
@@ -90,7 +90,6 @@ export default function Chat() {
       <div className="w-full mx-auto max-w-md">
         <div className={`flex flex-col min-h-screen h-full shadow-md`}>
           <WelcomeCard hasMessage={hasMessage} resetMessages={resetMessages} />
-
           <ScrollArea className="flex-1 pt-[6rem] pb-[10rem]">
             {messages.map((message) => (
               <div
