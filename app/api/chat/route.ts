@@ -27,7 +27,7 @@ export async function POST(request: Request) {
   const { messages } = await request.json();
 
   const stream = await streamText({
-    model: google("gemini-pro"),
+    model: google("gemini-2.0-flash"),
     messages: buildGoogleGenAIPrompt(messages),
     temperature: 0.7,
   });
